@@ -1,0 +1,15 @@
+--- 24preseed	2019-11-03 17:20:33.481971286 +0000
++++ 24preseed.new	2019-11-03 17:17:59.566325152 +0000
+@@ -67,10 +67,8 @@
+ 			locations="${x#file=} $locations"
+ 			;;
+ 		url=*)
+-			url_location="${x#url=}"
+-			start_network
+-			chroot /root wget -P /tmp "$url_location"
+-			locations="/tmp/$(basename "$url_location") $locations"
++			chroot /casper/root.squashfs
++			locations="/casper/root.squashfs $locations"
+ 			;;
+ 		*/*\?=*)
+ 			question="${x%%\?=*}"

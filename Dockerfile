@@ -32,7 +32,7 @@ RUN \
         /curlout/etc/ssl/certs/ca-certificates.crt
 
 # final mod layer
-FROM ubuntu:bionic
+FROM ubuntu:eoan
 
 # environment settings
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -51,13 +51,17 @@ RUN \
 	rsync && \
  echo "**** patch casper ****" && \
  patch /usr/share/initramfs-tools/scripts/casper < /patch && \
+ patch /usr/share/initramfs-tools/scripts/casper-bottom/24preseed < /preseed-patch && \
  echo "**** organize files ****" && \
  mkdir -p \
 	/buildout \
-	/modlayer/scripts && \
+	/modlayer/scripts/casper-bottom && \
  cp \
 	/usr/share/initramfs-tools/scripts/casper \
 	/modlayer/scripts/ && \
+ cp \
+	/usr/share/initramfs-tools/scripts/casper-bottom/24preseed \
+	/modlayer/scripts/casper-bottom/24preseed && \
  cp -ax \
 	/curlout/* \
 	/modlayer/
