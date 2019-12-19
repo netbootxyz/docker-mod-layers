@@ -22,11 +22,11 @@ RUN \
  strip src/curl && \
  echo "**** organize files ****" && \
  mkdir -p \
-	/curlout/bin \
+	/curlout/usr/bin \
 	/curlout/etc/ssl/certs && \
  cp \
 	src/curl \
-	/curlout/bin && \
+	/curlout/usr/bin && \
  cp \
 	/etc/ssl/cert.pem \
         /curlout/etc/ssl/certs/ca-certificates.crt
