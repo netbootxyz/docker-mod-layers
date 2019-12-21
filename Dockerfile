@@ -22,17 +22,17 @@ RUN \
  strip src/curl && \
  echo "**** organize files ****" && \
  mkdir -p \
-	/curlout/bin \
+	/curlout/usr/bin \
 	/curlout/etc/ssl/certs && \
  cp \
 	src/curl \
-	/curlout/bin && \
+	/curlout/usr/bin && \
  cp \
 	/etc/ssl/cert.pem \
         /curlout/etc/ssl/certs/ca-certificates.crt
 
 # final mod layer
-FROM ubuntu:bionic
+FROM debian:buster
 
 # environment settings
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -46,19 +46,18 @@ RUN \
  echo "**** install deps ****" && \
  apt-get update && \
  apt-get install -y \
-	casper \
-	patch \
+        live-boot \
+        patch \
 	rsync && \
- echo "**** patch casper ****" && \
- patch /usr/share/initramfs-tools/scripts/casper < /patch && \
+ echo "**** patch live-boot ****" && \
+ patch /lib/live/boot/9990-mount-http.sh < /patch && \
  echo "**** organize files ****" && \
  mkdir -p \
 	/buildout \
-	/modlayer/scripts && \
- cp \
-	/usr/share/initramfs-tools/scripts/casper \
-	/modlayer/scripts/ && \
+	/modlayer/usr/lib/live/boot && \
  cp -ax \
 	/curlout/* \
-	/modlayer/
-
+	/modlayer/ && \
+ cp \
+	/lib/live/boot/9990-mount-http.sh \
+	/modlayer/usr/lib/live/boot/ 
