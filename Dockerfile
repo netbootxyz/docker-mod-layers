@@ -8,8 +8,9 @@ RUN \
 	archiso \
 	patch \
 	rsync && \
- echo "**** patch casper ****" && \
+ echo "**** patch archiso ****" && \
  patch /usr/lib/initcpio/hooks/archiso_pxe_http < /patch && \
+ chmod 755 /usr/lib/initcpio/hooks/archiso_pxe_http && \
  echo "**** organize files ****" && \
  mkdir -p \
 	/buildout \
