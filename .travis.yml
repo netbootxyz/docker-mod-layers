@@ -9,7 +9,7 @@ env:
   global:
     - DEBIAN_FRONTEND="noninteractive"
     - DOCKERHUB_LIVE="netbootxyz/mod-layers"
-    - DOCKER_TAG="ubuntu-18.04"
+    - DOCKER_TAG="manjaro-18"
 
 jobs:
   include:

@@ -1,64 +1,22 @@
-# static curl build
-FROM alpine:3.10 as curlstage
-ARG VERSION="7.67.0"
+FROM archlinux
 
-RUN \
- echo "**** install deps ****" && \
- apk add --no-cache \
-	ca-certificates \
-	gcc \
-	make \
-	musl-dev \
-	openssl-dev \
-	zlib-dev && \
- echo "**** download and compile curl ****" && \
- wget "https://curl.haxx.se/download/curl-${VERSION}.tar.gz" &&\
- tar -xf curl-${VERSION}.tar.gz && \
- cd curl-* && \
- ./configure \
-	--disable-shared \
-	--with-ca-fallback && \
- make curl_LDFLAGS=-all-static && \
- strip src/curl && \
- echo "**** organize files ****" && \
- mkdir -p \
-	/curlout/bin \
-	/curlout/etc/ssl/certs && \
- cp \
-	src/curl \
-	/curlout/bin && \
- cp \
-	/etc/ssl/cert.pem \
-        /curlout/etc/ssl/certs/ca-certificates.crt
-
-# final mod layer
-FROM ubuntu:bionic
-
-# environment settings
-ARG DEBIAN_FRONTEND="noninteractive"
-ENV XDG_CONFIG_HOME="/config/xdg"
-
-# add files
+# add local files
 COPY /root /
-COPY --from=curlstage /curlout /curlout
 
 RUN \
  echo "**** install deps ****" && \
- apt-get update && \
- apt-get install -y \
-	casper \
-	patch \
+ pacman -Sy && \
+ pacman -S --noconfirm \
+	manjaro-tools-iso \
 	rsync && \
- echo "**** patch casper ****" && \
- patch /usr/share/initramfs-tools/scripts/casper < /patch && \
- echo "**** organize files ****" && \
+ echo "**** patch files prep modlayer ****" && \
+ sed -i \
+	-e 's/${misobasedir}\/${arch}//g' \
+	-e 's/"OK"/"OK\\|302 Found"/g' \
+	/etc/initcpio/hooks/miso_pxe_http && \
  mkdir -p \
 	/buildout \
-	/modlayer/scripts && \
+	/modlayer/hooks && \
  cp \
-	/usr/share/initramfs-tools/scripts/casper \
-	/modlayer/scripts/ && \
- cp -ax \
-	/curlout/* \
-	/modlayer/
-
+	/etc/initcpio/hooks/miso_pxe_http \
+	/modlayer/hooks/
