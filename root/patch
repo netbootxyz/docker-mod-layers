@@ -1,6 +1,15 @@
---- casper	2019-10-14 15:29:05.000000000 +0000
-+++ casper.new	2019-11-16 08:06:42.842294433 +0000
-@@ -255,16 +255,13 @@
+--- casper	2020-04-08 21:24:58.000000000 +0000
++++ casper.new	2020-04-23 17:13:23.139096816 +0000
+@@ -47,7 +47,7 @@
+                     STATICIP="frommedia"
+                 fi
+                 export STATICIP ;;
+-            url=*.iso)
++            url=*)
+                 export NETBOOT=url
+                 export URL="${x#url=}" ;;
+             uuid=*)
+@@ -256,22 +256,13 @@
  
  do_urlmount() {
      rc=1
@@ -11,7 +20,13 @@
 -    target=$(basename "${URL}")
 -
 -    if wget "${URL}" -O "${target}"; then
--        mount -o ro "${target}" "${mountpoint}" && rc=0
+-        if mount -o ro "${target}" "${mountpoint}"; then
+-            if is_casper_path $mountpoint && matches_uuid $mountpoint; then
+-                rc=0
+-            else
+-                umount $mountpoint
+-            fi
+-        fi
 +    mkdir -p ${mountpoint}
 +    mount -t tmpfs -o size=`/bin/curl -sI ${URL} | sed -ne '/Content-Length/{s/.*: //;p}'` tmpfs ${mountpoint}
 +    mkdir -p ${mountpoint}/casper
@@ -21,4 +36,4 @@
      fi
 -
      return ${rc}
- } 
+ }

@@ -9,7 +9,7 @@ env:
   global:
     - DEBIAN_FRONTEND="noninteractive"
     - DOCKERHUB_LIVE="netbootxyz/mod-layers"
-    - DOCKER_TAG="ubuntu-19.10"
+    - DOCKER_TAG="ubuntu-20.04"
 
 jobs:
   include:
