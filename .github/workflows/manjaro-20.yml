@@ -32,5 +32,5 @@ jobs:
         context: .
         file: ./Dockerfile
         tags: |
-          ghcr.io/netbootxyz/mod-layers:latest
+          ghcr.io/netbootxyz/mod-layers:${DOCKER_TAG}
           ghcr.io/netbootxyz/mod-layers:${{ github.sha }}
