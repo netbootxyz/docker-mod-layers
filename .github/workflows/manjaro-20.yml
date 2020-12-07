@@ -5,9 +5,8 @@ on:
     branches:
       - manjaro-20
 env:
-  - DEBIAN_FRONTEND="noninteractive"
-  - DOCKERHUB_LIVE="netbootxyz/mod-layers"
-  - DOCKER_TAG="manjaro-20"
+  DEBIAN_FRONTEND: noninteractive
+  DOCKER_TAG: manjaro-20
 
 jobs:
   build:
