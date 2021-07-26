@@ -1,6 +1,6 @@
 # static curl build
-FROM alpine:3.10 as curlstage
-ARG VERSION="7.67.0"
+FROM alpine:3.14 as curlstage
+ARG VERSION="7.78.0"
 
 RUN \
  echo "**** install deps ****" && \
@@ -17,6 +17,7 @@ RUN \
  cd curl-* && \
  ./configure \
 	--disable-shared \
+        --with-openssl \
 	--with-ca-fallback && \
  make curl_LDFLAGS=-all-static && \
  strip src/curl && \
@@ -32,7 +33,7 @@ RUN \
         /curlout/etc/ssl/certs/ca-certificates.crt
 
 # final mod layer
-FROM debian:buster
+FROM debian:bullseye
 
 # environment settings
 ARG DEBIAN_FRONTEND="noninteractive"
