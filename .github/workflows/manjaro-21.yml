@@ -1,12 +1,12 @@
-name: manjaro-20
+name: manjaro-21
 
 on:
   push:
     branches:
-      - manjaro-20
+      - manjaro-21
 env:
   DEBIAN_FRONTEND: noninteractive
-  DOCKER_TAG: manjaro-20
+  DOCKER_TAG: manjaro-21
 
 jobs:
   build:
