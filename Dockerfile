@@ -1,7 +1,4 @@
-FROM archlinux
-
-# add local files
-COPY /root /
+FROM manjarolinux/base:latest
 
 RUN \
  echo "**** install deps ****" && \
