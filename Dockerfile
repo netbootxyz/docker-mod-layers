@@ -1,6 +1,6 @@
 # static curl build
 FROM alpine:3.10 as curlstage
-ARG VERSION="7.78.0"
+ARG VERSION="7.67.0"
 
 RUN \
  echo "**** install deps ****" && \
