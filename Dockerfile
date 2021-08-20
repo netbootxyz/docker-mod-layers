@@ -1,5 +1,5 @@
 # static curl build
-FROM alpine:3.14 as curlstage
+FROM alpine:3.10 as curlstage
 ARG VERSION="7.78.0"
 
 RUN \
@@ -17,7 +17,6 @@ RUN \
  cd curl-* && \
  ./configure \
 	--disable-shared \
-        --with-openssl \
 	--with-ca-fallback && \
  make curl_LDFLAGS=-all-static && \
  strip src/curl && \
