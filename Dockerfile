@@ -6,6 +6,7 @@ RUN \
  echo "**** install deps ****" && \
  pacman -Sy --noconfirm \
 	archiso \
+	mkinitcpio-archiso \
 	patch \
 	rsync && \
  echo "**** patch archiso ****" && \
