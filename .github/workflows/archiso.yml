@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - archiso
+      
 env:
   DEBIAN_FRONTEND: noninteractive
   DOCKER_TAG: archiso
