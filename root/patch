@@ -1,14 +1,21 @@
---- archiso_pxe_http	2020-01-16 20:30:58.525521999 -0800
-+++ archiso_pxe_http.new	2020-01-16 20:34:35.120691358 -0800
-@@ -38,7 +38,10 @@
-     mkdir -p "/run/archiso/httpspace"
-     mount -t tmpfs -o size="${archiso_http_spc}",mode=0755 httpspace "/run/archiso/httpspace"
- 
--    _curl_get "${archiso_http_srv}${archisobasedir}/${arch}/airootfs.sfs" "/${arch}"
-+    _curl_get "${archiso_http_srv}/airootfs.sfs" "/${arch}"
-+    if [ ! -z "$(/bin/curl -sI "${archiso_http_srv}/airootfs.sfs.part2" | grep "200 OK\|302 Found" || :)" ]; then
-+        curl -L -f "${archiso_http_srv}/airootfs.sfs.part2" -o ->> "/run/archiso/httpspace/${archisobasedir}/${arch}/airootfs.sfs"
+--- archiso_pxe_http	2021-09-28 12:50:53.000000000 -0500
++++ archiso_pxe_http.new	2021-09-28 12:55:03.000000000 -0500
+@@ -47,12 +47,15 @@
+
+     # shellcheck disable=SC2154
+     # defined via initcpio's parse_cmdline()
+-    if ! curl -L -f -o /dev/null -s -r 0-0 "${archiso_http_srv}${archisobasedir}/${arch}/airootfs.sfs"; then
+-        if curl -L -f -o /dev/null -s -r 0-0 "${archiso_http_srv}${archisobasedir}/${arch}/airootfs.erofs"; then
++    if ! curl -L -f -o /dev/null -s -r 0-0 "${archiso_http_srv}/airootfs.sfs"; then
++        if curl -L -f -o /dev/null -s -r 0-0 "${archiso_http_srv}/airootfs.erofs"; then
+             img_type="erofs"
+         fi
+     fi
+-    _curl_get "${archiso_http_srv}${archisobasedir}/${arch}/airootfs.${img_type}" "/${arch}"
++    _curl_get "${archiso_http_srv}/airootfs.${img_type}" "/${arch}"
++    if [ ! -z "$(/bin/curl -sI "${archiso_http_srv}/airootfs.${img_type}.part2" | grep "200 OK\|302 Found" || :)" ]; then
++        curl -L -f "${archiso_http_srv}/airootfs.${img_type}.part2" -o ->> "/run/archiso/httpspace/${archisobasedir}/${arch}/airootfs.${img_type}"
 +    fi
- 
-     if [[ "${checksum}" == "y" ]]; then
-         _curl_get "${archiso_http_srv}${archisobasedir}/${arch}/airootfs.sha512" "/${arch}"
+
+     # shellcheck disable=SC2154
+     # defined via initcpio's parse_cmdline()
