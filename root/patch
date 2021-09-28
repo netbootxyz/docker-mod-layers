@@ -1,6 +1,6 @@
 --- archiso_pxe_http	2021-09-28 12:50:53.000000000 -0500
-+++ archiso_pxe_http.new	2021-09-28 12:55:03.000000000 -0500
-@@ -47,12 +47,15 @@
++++ archiso_pxe_http.new	2021-09-28 16:09:14.000000000 -0500
+@@ -47,22 +47,25 @@
 
      # shellcheck disable=SC2154
      # defined via initcpio's parse_cmdline()
@@ -19,3 +19,15 @@
 
      # shellcheck disable=SC2154
      # defined via initcpio's parse_cmdline()
+     if [ "${checksum}" = "y" ]; then
+-        _curl_get "${archiso_http_srv}${archisobasedir}/${arch}/airootfs.sha512" "/${arch}"
++        _curl_get "${archiso_http_srv}/airootfs.sha512" "/${arch}"
+     fi
+     # shellcheck disable=SC2154
+     # defined via initcpio's parse_cmdline()
+     if [ "${verify}" = "y" ]; then
+-        _curl_get "${archiso_http_srv}${archisobasedir}/${arch}/airootfs.${img_type}.sig" "/${arch}"
++        _curl_get "${archiso_http_srv}/airootfs.${img_type}.sig" "/${arch}"
+     fi
+
+     mkdir -p "/run/archiso/bootmnt"
