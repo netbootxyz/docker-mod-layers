@@ -1,12 +1,12 @@
-name: manjaro-21
+name: garuda
 
 on:
   push:
     branches:
-      - manjaro-21
+      - garuda
 env:
   DEBIAN_FRONTEND: noninteractive
-  DOCKER_TAG: manjaro-21
+  DOCKER_TAG: garuda
 
 jobs:
   build:
