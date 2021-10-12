@@ -7,10 +7,8 @@ RUN \
 	manjaro-tools-iso \
 	rsync && \
  echo "**** patch files prep modlayer ****" && \
- sed -i \
-	-e 's/${misobasedir}\/${arch}//g' \
-	-e 's/"OK"/"OK\\|302"/g' \
-	/etc/initcpio/hooks/miso_pxe_http && \
+ patch /etc/initcpio/hooks/miso_pxe_http < /patch && \
+ chmod 755 /etc/initcpio/hooks/miso_pxe_http && \
  mkdir -p \
 	/buildout \
 	/modlayer/hooks && \
