@@ -1,5 +1,7 @@
 FROM manjarolinux/base:latest
 
+COPY root/ /
+
 RUN \
  echo "**** install deps ****" && \
  pacman -Sy && \
