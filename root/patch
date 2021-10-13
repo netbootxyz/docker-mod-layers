@@ -12,7 +12,7 @@
 +        if [[ ! -z "$( curl -L -s --head "${_src}/${sfs}.sfs" | grep "OK\|302" )" ]]; then
              _curl_get "${_src}/${sfs}.sfs" "/${arch}"
 +            if [ ! -z "$( curl -sI "${_src}/${sfs}.sfs.part2" | grep "OK\|302" || :)" ]; then
-+                curl -L -f "${_src}/${sfs}.sfs.part2" -o ->> "/${arch}/${sfs}.sfs"
++                curl -L -f "${_src}/${sfs}.sfs.part2" -o ->> "/run/miso/httpspace/${misobasedir}/${arch}/${sfs}.sfs"
 +            fi
 
              if [[ "${checksum}" == "y" ]]; then
