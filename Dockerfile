@@ -32,7 +32,7 @@ RUN \
         /curlout/etc/ssl/certs/ca-certificates.crt
 
 # final mod layer
-FROM ubuntu:bionic
+FROM ubuntu:focal
 
 # environment settings
 ARG DEBIAN_FRONTEND="noninteractive"
