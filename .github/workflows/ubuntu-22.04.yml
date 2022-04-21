@@ -1,12 +1,12 @@
-name: ubuntu-21.04
+name: ubuntu-22.04
 
 on:
   push:
     branches:
-      - ubuntu-21.04
+      - ubuntu-22.04
 env:
   DEBIAN_FRONTEND: noninteractive
-  DOCKER_TAG: ubuntu-21.04
+  DOCKER_TAG: ubuntu-22.04
 
 jobs:
   build:
