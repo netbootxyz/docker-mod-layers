@@ -1,5 +1,5 @@
 # static curl build
-FROM alpine:3.10 as curlstage
+FROM alpine:3.16 as curlstage
 ARG VERSION="7.67.0"
 
 RUN \
