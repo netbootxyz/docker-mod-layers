@@ -2,7 +2,7 @@
   "extends": [
     "config:base"
   ],
-  "basebranches": [
+  "baseBranches": [
     "archiso", "debian-10", "debian-11", "garuda", "manjaro-21", "ubuntu-20.04", "ubuntu-22.04"
   ]
 }
