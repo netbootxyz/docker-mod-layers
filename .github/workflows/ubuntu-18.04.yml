@@ -1,0 +1,36 @@
+name: ubuntu-18.04
+
+on:
+  push:
+    branches:
+      - ubuntu-18.04
+env:
+  DEBIAN_FRONTEND: noninteractive
+  DOCKER_TAG: ubuntu-18.04
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+        
+    - name: Login to the GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ secrets.GHCR_USER }}
+        password: ${{ secrets.GHCR_TOKEN }}
+
+    - name: Build and push image
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        context: .
+        file: ./Dockerfile
+        tags: |
+          ghcr.io/netbootxyz/mod-layers:${{ env.DOCKER_TAG }}
+          ghcr.io/netbootxyz/mod-layers:${{ github.sha }}
