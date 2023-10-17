@@ -32,7 +32,7 @@ RUN \
         /curlout/etc/ssl/certs/ca-certificates.crt
 
 # final mod layer
-FROM ubuntu:kinetic
+FROM ubuntu:kinetic-20230624
 
 # environment settings
 ARG DEBIAN_FRONTEND="noninteractive"
