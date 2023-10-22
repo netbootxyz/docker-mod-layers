@@ -6,6 +6,7 @@ RUN \
  echo "**** install deps ****" && \
  pacman -Sy && \
  pacman -S --noconfirm \
+	patch \
 	manjaro-tools-iso \
 	rsync && \
  echo "**** patch files prep modlayer ****" && \
