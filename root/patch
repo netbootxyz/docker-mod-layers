@@ -1,6 +1,6 @@
---- miso_pxe_http	2021-10-08 18:16:49.952549773 +0000
-+++ miso_pxe_http.mod	2021-10-08 18:19:22.073560852 +0000
-@@ -38,11 +38,14 @@
+--- a/root/miso_pxe_http
++++ b/root/miso_pxe_http
+@@ -38,11 +38,17 @@ miso_pxe_http_mount_handler () {
      mkdir -p "/run/miso/httpspace"
      mount -t tmpfs -o size="${miso_http_spc}",mode=0755 httpspace "/run/miso/httpspace"
 
@@ -13,6 +13,9 @@
              _curl_get "${_src}/${sfs}.sfs" "/${arch}"
 +            if [ ! -z "$( curl -sI "${_src}/${sfs}.sfs.part2" | grep "OK\|302" || :)" ]; then
 +                curl -L -f "${_src}/${sfs}.sfs.part2" -o ->> "/run/miso/httpspace/${misobasedir}/${arch}/${sfs}.sfs"
++            fi
++            if [ ! -z "$( curl -sI "${_src}/${sfs}.sfs.part3" | grep "OK\|302" || :)" ]; then
++                curl -L -f "${_src}/${sfs}.sfs.part3" -o ->> "/${arch}/${sfs}.sfs"
 +            fi
 
              if [[ "${checksum}" == "y" ]]; then
