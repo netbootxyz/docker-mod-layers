@@ -9,6 +9,6 @@
     }
   ],
   "baseBranches": [
-    "archiso", "debian-10", "debian-11", "debian-12", "garuda", "manjaro-21", "ubuntu-20.04", "ubuntu-22.04", "ubuntu-22.10", "ubuntu-23.04", "ubuntu-23.10"
+    "archiso", "debian-10", "debian-11", "debian-12", "garuda", "manjaro-21", "ubuntu-18.04", "ubuntu-20.04", "ubuntu-22.04", "ubuntu-22.10", "ubuntu-23.04", "ubuntu-23.10"
   ]
 }
