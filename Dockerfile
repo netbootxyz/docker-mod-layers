@@ -32,7 +32,7 @@ RUN \
         /curlout/etc/ssl/certs/ca-certificates.crt
 
 # final mod layer
-FROM ubuntu:mantic
+FROM ubuntu:mantic-20231011
 
 # environment settings
 ARG DEBIAN_FRONTEND="noninteractive"
