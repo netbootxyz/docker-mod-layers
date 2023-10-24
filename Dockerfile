@@ -1,6 +1,6 @@
 # static curl build
 FROM alpine:3.18 as curlstage
-ARG VERSION="7.67.0"
+ARG VERSION="8.4.0"
 
 RUN \
  echo "**** install deps ****" && \
@@ -17,6 +17,7 @@ RUN \
  cd curl-* && \
  ./configure \
 	--disable-shared \
+ 	--with-openssl \
 	--with-ca-fallback && \
  make curl_LDFLAGS=-all-static && \
  strip src/curl && \
