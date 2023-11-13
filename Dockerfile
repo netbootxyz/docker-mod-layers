@@ -4,32 +4,37 @@ ARG VERSION="8.4.0"
 
 RUN \
  echo "**** install deps ****" && \
- apk add --no-cache \
-	ca-certificates \
-	gcc \
-	make \
-	musl-dev \
-	openssl-dev \
-	zlib-dev && \
+ apk add --no-cache build-base \
+                    clang \
+                    openssl-dev \
+                    libssh2-dev \
+                    libssh2-static \
+                    openssl-libs-static \
+                    zlib-static && \
  echo "**** download and compile curl ****" && \
  wget "https://curl.haxx.se/download/curl-${VERSION}.tar.gz" &&\
  tar -xf curl-${VERSION}.tar.gz && \
  cd curl-* && \
- ./configure \
-	--disable-shared \
- 	--with-openssl \
-	--with-ca-fallback && \
- make curl_LDFLAGS=-all-static && \
+ export CC=clang && \
+ LDFLAGS="-static" \
+ PKG_CONFIG="pkg-config --static" ./configure --disable-shared \
+                                              --enable-static \
+                                              --disable-ldap \
+                                              --enable-ipv6 \
+                                              --enable-unix-sockets \
+                                              --with-ssl \
+                                              --with-libssh2 && \
+ make -j4 V=1 LDFLAGS="-static -all-static" && \
  strip src/curl && \
  echo "**** organize files ****" && \
  mkdir -p \
-	/curlout/usr/bin \
-	/curlout/etc/ssl/certs && \
+        /curlout/usr/bin \
+        /curlout/etc/ssl/certs && \
  cp \
-	src/curl \
-	/curlout/usr/bin && \
+        src/curl \
+        /curlout/usr/bin && \
  cp \
-	/etc/ssl/cert.pem \
+        /etc/ssl/cert.pem \
         /curlout/etc/ssl/certs/ca-certificates.crt
 
 # final mod layer
