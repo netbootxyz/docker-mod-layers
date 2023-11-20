@@ -13,7 +13,7 @@
      fi
 -    _curl_get "${archiso_http_srv}${archisobasedir}/${arch}/airootfs.${img_type}" "/${arch}"
 +    _curl_get "${archiso_http_srv}/airootfs.${img_type}" "/${arch}"
-+    if [ ! -z "$(/bin/curl -sI "${archiso_http_srv}/airootfs.${img_type}.part2" | grep "200 OK\|302 Found" || :)" ]; then
++    if [ ! -z "$(/bin/curl -sI "${archiso_http_srv}/airootfs.${img_type}.part2" | grep "HTTP/2 200\|HTTP/2 302" || :)" ]; then
 +        curl -L -f "${archiso_http_srv}/airootfs.${img_type}.part2" -o ->> "/run/archiso/httpspace/${archisobasedir}/${arch}/airootfs.${img_type}"
 +    fi
 
