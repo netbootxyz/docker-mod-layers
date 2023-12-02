@@ -38,7 +38,7 @@ RUN \
         /curlout/etc/ssl/certs/ca-certificates.crt
 
 # final mod layer
-FROM ubuntu:lunar
+FROM ubuntu:lunar-20231128
 
 # environment settings
 ARG DEBIAN_FRONTEND="noninteractive"
