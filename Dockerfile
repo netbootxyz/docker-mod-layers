@@ -38,7 +38,7 @@ RUN \
         /curlout/etc/ssl/certs/ca-certificates.crt
 
 # final mod layer
-FROM ubuntu:focal
+FROM ubuntu:noble
 
 # environment settings
 ARG DEBIAN_FRONTEND="noninteractive"
