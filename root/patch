@@ -7,8 +7,8 @@
 -								wget "${url}" -O "${dest}/$(basename ${url})"
 +								/bin/curl -L "${url}" -o "${dest}/$(basename ${url})"
 +								for partNum in $(seq 2 10); do
-+								if [ ! -z "$(/bin/curl -sI "${url}.part${partNum}" | grep "200 OK\|302 Found" || :)" ]; then
-+									/bin/curl -L "${url}.part${partNum}" -o ->> "${dest}/$(basename ${url})";
++								if [ ! -z "$(/bin/curl -sI "${url}".part${partNum} | grep "200 OK\|302 Found" || :)" ]; then
++									/bin/curl -L "${url}".part${partNum} -o ->> "${dest}/$(basename ${url})";
 +								else
 +									break
 +								fi
