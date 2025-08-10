@@ -1,12 +1,12 @@
-name: debian-12
+name: debian-13
 
 on:
   push:
     branches:
-      - debian-12
+      - debian-13
 env:
   DEBIAN_FRONTEND: noninteractive
-  DOCKER_TAG: debian-12
+  DOCKER_TAG: debian-13
 
 jobs:
   build:
