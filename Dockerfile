@@ -38,7 +38,7 @@ RUN \
         /curlout/etc/ssl/certs/ca-certificates.crt
 
 # final mod layer
-FROM debian:buster
+FROM debian:trixie
 
 # environment settings
 ARG DEBIAN_FRONTEND="noninteractive"
